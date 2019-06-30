@@ -1,4 +1,4 @@
 #!/bin/bash
 
-
-skills/Evcan-alerts-skill/./timer.pl 600 skills/Evcan-alerts-skill/./ALERT2 $1 $2 >nul 2>&1
+mqtt="$(echo " '" $2 "'")"
+skills/Evcan-alerts-skill/./timer.pl 600 skills/Evcan-alerts-skill/./ALERT2 $1 $mqtt >nul 2>&1
