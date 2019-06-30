@@ -1,0 +1,52 @@
+{
+    "name": "Evcan-alerts",
+    "skillMetadata": {
+        "sections": [
+            {
+                "name": "Weather ID",
+                "fields": [
+                    {
+                        "name": "zone_id",
+                        "type": "text",
+                        "label": "Weather-ID - check https://weather.gc.ca/canada_e.html  ATOM",
+                        "value": "mb-24_e"
+                    }
+                ]
+            },
+            {
+                "name": "Alert ID",
+                "fields": [
+                    {
+                        "name": "alert_id",
+                        "type": "text",
+                        "label": "Alert-ID - check https://weather.gc.ca/warnings/index_e.html ATOM",
+                        "value": "mb19_e"
+                    }
+                ]
+            },
+            {
+                "name": "Optional MQTT",
+                "fields": [
+                    {
+                        "name": "mqtt_ip",
+                        "type": "text",
+                        "label": "IP",
+                        "value": "192.168.168.150"
+                    }
+                ]
+            },
+            {
+                "name": "optional MqTT settings",
+                "fields": [
+                    {
+                        "name": "mqtt_opt",
+                        "type": "text",
+                        "label": "optional mqtt settings",
+                        "value": ""
+                    }
+                ]
+            }
+            
+        ]
+    }
+}
