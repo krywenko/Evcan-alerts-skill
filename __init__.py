@@ -25,7 +25,7 @@ class EvcanAlerts(MycroftSkill):
         self.alert_id = self.settings.get('alert_id','')
         self.mqtt_ip = self.settings.get('mqtt_ip','')
         self.mqtt_opt = self.settings.get('mqtt_opt','')
-        MQTT = self.mqtt_ip + " " + self.mqtt_opt
+        MQTT = self.mqtt_ip + " \'" + self.mqtt_opt + " \'"
         
         SETTINGS = self.alert_id + " " + MQTT
         RUN = os.popen("skills/Evcan-alerts-skill/./WAlert " + SETTINGS + " >nul 2>&1 | echo started") 
