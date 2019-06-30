@@ -1,1 +1,1 @@
-noaa-sdk
+if you visual display then you can use my https://github.com/krywenko/TFT-ifterface-for-Mycroft-AI -  you also need to install mosquitto-clients
