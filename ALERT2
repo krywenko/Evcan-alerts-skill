@@ -6,7 +6,7 @@ ZONE="$1"    # enviroment Canada rss zone
 #ZONE="nb2_e.xml"
 
 prev="$(cat prev)"
-OUTPUT="$(curl -s  https://weather.gc.ca/rss/battleboard/${ZONE}.xml | sed -n 's:.*<title>\(.*\)</title>.*:\1:p' | sed  '1d' | sed  's/in effect//gI' | sed  's/ended//gI' | cut -d',' -f1 | awk '!seen[$1,$2]++' )"
+OUTPUT="$(curl -s  https://weather.gc.ca/rss/battleboard/${ZONE}.xml | sed -n 's:.*<title>\(.*\)</title>.*:\1:p' | sed  '1d' | sed  's/in effect//gI' | cut -d',' -f1 | awk '!seen[$1,$2]++' )"
 #awk '!seen[$1,$2]++'
 #tail -n1
 echo "${OUTPUT}"
@@ -80,6 +80,7 @@ elif [ $NO_WHITESPACE == 'WEATHERADVISORY' ]   #silent Alarm just display warnin
      mosquitto_pub -h $MQTTSETTING -t '/ai/artist' -m "Intense System developing"
      mosquitto_pub -h $MQTTSETTING -t '/ai/song' -m 'Low Pressure Cell - Lighting, Hail          ... &/or Strong Winds could Develop '
      echo "${NO_WHITESPACE}" > prev
+     mpg123 skills/Evcan-alerts-skill/bleep.mp3
 
 elif [ $NO_WHITESPACE == 'HEATWARNING' ]   #silent Alarm just display warning on TFT Screen
      then
@@ -96,19 +97,37 @@ elif [ $NO_WHITESPACE == 'SEVERETHUNDERSTORMWARNING' ]   #silent Alarm just disp
      mosquitto_pub -h $MQTTSETTING -t '/ai/clear' -m '1'
      mosquitto_pub -h $MQTTSETTING -t '/ai/station' -m "Weather Alert"
      mosquitto_pub -h $MQTTSETTING -t '/ai/artist' -m "Severe ThunderStorm"
-     mosquitto_pub -h $MQTTSETTING -t '/ai/song' -m 'Possible sever ThunderStorm'
+     mosquitto_pub -h $MQTTSETTING -t '/ai/song' -m 'Possible severe ThunderStorm'
      echo "${NO_WHITESPACE}" > prev
      mpg123 skills/Evcan-alerts-skill/thunder.mp3
-     
+
+elif [ $NO_WHITESPACE == 'SEVERETHUNDERSTORMWARNINGENDED' ]   #silent Alarm just display warning on TFT Screen
+     then
+     echo 'cmd_5($OUTPUT)' > /dev/ttyS2
+     mosquitto_pub -h $MQTTSETTING -t '/ai/clear' -m '1'
+     mosquitto_pub -h $MQTTSETTING -t '/ai/station' -m "Weather Alert"
+     mosquitto_pub -h $MQTTSETTING -t '/ai/artist' -m "Warning has ended"
+     mosquitto_pub -h $MQTTSETTING -t '/ai/song' -m ' for severe ThunderStorm watch'
+     echo "${NO_WHITESPACE}" > prev
+
 elif [ $NO_WHITESPACE == 'SEVERETHUNDERSTORMWATCH' ]   #silent Alarm just display warning on TFT Screen
      then
      echo 'cmd_5($OUTPUT)' > /dev/ttyS2
      mosquitto_pub -h $MQTTSETTING -t '/ai/clear' -m '1'
      mosquitto_pub -h $MQTTSETTING -t '/ai/station' -m "Weather Watch"
      mosquitto_pub -h $MQTTSETTING -t '/ai/artist' -m "Severe ThunderStorm"
-     mosquitto_pub -h $MQTTSETTING -t '/ai/song' -m 'Possible sever ThunderStorm'
+     mosquitto_pub -h $MQTTSETTING -t '/ai/song' -m 'Possible Severe ThunderStorm'
      echo "${NO_WHITESPACE}" > prev  
      mpg123 skills/Evcan-alerts-skill/thunder.mp3 
+     
+elif [ $NO_WHITESPACE == 'SEVERETHUNDERSTORMWATCHENDED' ]   #silent Alarm just display warning on TFT Screen
+     then
+     echo 'cmd_5($OUTPUT)' > /dev/ttyS2
+     mosquitto_pub -h $MQTTSETTING -t '/ai/clear' -m '1'
+     mosquitto_pub -h $MQTTSETTING -t '/ai/station' -m "Weather Watch"
+     mosquitto_pub -h $MQTTSETTING -t '/ai/artist' -m "Warning has Ended"
+     mosquitto_pub -h $MQTTSETTING -t '/ai/song' -m 'for Severe ThunderStorm'
+     echo "${NO_WHITESPACE}" > prev  
 
 else                                       # full alarm   speech and display
     /$HOME/mycroft-core/bin/mycroft-say-to stop
