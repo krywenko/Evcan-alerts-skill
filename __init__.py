@@ -28,7 +28,7 @@ class EvcanAlerts(MycroftSkill):
         MQTT = self.mqtt_ip + " " + self.mqtt_opt
         
         SETTINGS = self.alert_id + " " + MQTT
-        os.system("skills/Evcan-alerts-skill/./WAlert " + SETTINGS + " >nul 2>&1 ") 
+        os.system("skills/Evcan-alerts-skill/./WAlert " + SETTINGS + " >nul 2>&1 | echo started") 
 
     @intent_file_handler('alerts.evcan.intent')
     def handle_alerts_evcan(self, message):
