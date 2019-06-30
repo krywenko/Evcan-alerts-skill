@@ -10,3 +10,5 @@ https://weather.gc.ca/rss/battleboard/on2_e.xml  you need this on2_e as a code
 the skill works with my mycroft TFT screen ( https://github.com/krywenko/TFT-ifterface-for-Mycroft-AI) but is not required.     for  sever warnnings Ie: tornados  house wreck winds, hurricane  etc..   it wiil sound an alarm and then say the event
 for less severe such as thunder storms  it will  display on the TFT screen and give mild cue of thunder sound  for  heavy rain it gives a  rain cue.  for other one a simple bleep..
  you can then ask what the alert is by saying  "weather alerts"  "what are the weather alerts' or "any weather alerts" and it will read the description of the alert and give the current condition and the events forcast 
+
+for  MQTT option just encase them in '-p 2000 -u mycroft -P 1234' and it will pass them on to the mqtt publisher
